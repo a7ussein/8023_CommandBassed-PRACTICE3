@@ -9,7 +9,6 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.driveTrainSubSystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-gvfv c
 /** An example command that uses an example subsystem. */
 public class driveWithJoyStickCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
