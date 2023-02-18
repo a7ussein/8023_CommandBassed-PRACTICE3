@@ -7,11 +7,11 @@ package frc.robot.commands;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.driveTrainSubSystem;
-import edu.wpi.first.wpilibj.Joystick;
+/*  import edu.wpi.first.wpilibj.Joystick; we are not using a joystick any more*/
 import edu.wpi.first.wpilibj2.command.CommandBase;
-gvfv c
-/** An example command that uses an example subsystem. */
-public class driveWithJoyStickCommand extends CommandBase {
+
+/** An example comm and that uses an example subsystem. */
+public class driveTrainCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final driveTrainSubSystem driveTrainSubSystem;
 
@@ -20,7 +20,7 @@ public class driveWithJoyStickCommand extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public driveWithJoyStickCommand(driveTrainSubSystem driveTrainSubSystem) {
+  public driveTrainCommand(driveTrainSubSystem driveTrainSubSystem) {
     this.driveTrainSubSystem = driveTrainSubSystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveTrainSubSystem);
@@ -36,9 +36,9 @@ public class driveWithJoyStickCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double forwardSpeed = RobotContainer.joystick.getX();
-    double turningSPeed = RobotContainer.joystick.getZ();
-    driveTrainSubSystem.arcadeDrive(forwardSpeed, turningSPeed);
+    double forwardSpeed = RobotContainer.driveController.getRawAxis(1);
+    double turningSpeed = RobotContainer.driveController.getRawAxis(4);
+    driveTrainSubSystem.drive(forwardSpeed, turningSpeed);
   }
 
   // Called once the command ends or is interrupted.
