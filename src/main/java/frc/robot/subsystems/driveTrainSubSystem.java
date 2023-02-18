@@ -46,11 +46,36 @@ public class driveTrainSubSystem extends SubsystemBase {
     leftBackMotor.follow(leftFrontMotor);
     rightBackMotor.follow(rightFrontMotor);
 
-    rightControllerGroup.setInverted(true);
-    leftControllerGroup.setInverted(false);
+    rightControllerGroup.setInverted(false);
+    leftControllerGroup.setInverted(true); // based on last year's code
   }
+//   public void drive(double forward, double rotate, double fastMode, double slowMode){
+//     double throttleFactor = 0.6;
 
-    public void arcadeDrive(double fwd, double rot) {
+//     if (fastMode > 0.2) {
+//         IsFaster = true;
+//     } else {
+//         IsFaster = false;
+//     }
+
+//     if (slowMode > 0.2) {
+//         IsSlower = true;
+//     } else {
+//         IsSlower = false;
+//     }
+
+//     if (IsFaster) {
+//         throttleFactor = (0.40 * fastMode) + 0.6;
+//     }
+
+//     if (IsSlower) {
+//         throttleFactor = (-0.2 * slowMode) + 0.6;
+//     }
+
+//     m_drive.arcadeDrive((forward * throttleFactor *-1), (rotate * throttleFactor*-1));
+// }
+
+    public void drive(double fwd, double rot) {
     differentialDrive.arcadeDrive(fwd, rot);
   }
   /**
