@@ -75,7 +75,7 @@ public class driveTrainSubSystem extends SubsystemBase {
 //     m_drive.arcadeDrive((forward * throttleFactor *-1), (rotate * throttleFactor*-1));
 // }
 
-    public void drive(double fwd, double rot) {
+  public void drive(double fwd, double rot) {
     differentialDrive.arcadeDrive(fwd, rot);
   }
   /**

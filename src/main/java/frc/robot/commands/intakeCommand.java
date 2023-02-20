@@ -30,8 +30,10 @@ public class intakeCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        intakeSubSystem.startRaisingMotor(RobotContainer.intakeController.getRawAxis(1));
-        intakeSubSystem.startRollerMotor(RobotContainer.intakeController.getRawAxis(3));
+      double raisingMotorSpeed = RobotContainer.intakeController.getRawAxis(1);
+      double rollerMotorSpeed = RobotContainer.intakeController.getRawAxis(3);
+      intakeSubSystem.startRaisingMotor(raisingMotorSpeed);
+      intakeSubSystem.startRollerMotor(rollerMotorSpeed);
     }
   
     // Called once the command ends or is interrupted.
