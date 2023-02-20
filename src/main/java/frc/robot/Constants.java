@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -16,9 +19,33 @@ public final class Constants {
   // Drive Train Constants 
   public static final class driveTrainConstants{
     public static final int leftFrontCANID = 3;
-    public static final int leftBackCANID = 2;
-    public static final int rightFrontCANID = 1;
-    public static final int rightBackCANID = 4;
+    public static final int leftBackCANID = 4;
+    public static final int rightFrontCANID = 2;
+    public static final int rightBackCANID = 1;
+
+  //Replace the below values with numbers from SysId
+    public static final double ksVolts = 0.20322; // Replace 
+    public static final double kvVoltSecondsPerMeter = 3.2976; // Replace
+    public static final double kaVoltSecondsSquaredPerMeter = 0.67542; // Replace
+    public static final double kPDriveVel = 4.569; // Replace
+
+    public static final double kTrackWidthMeters = Units.inchesToMeters(14); // according to Alex
+    public static final double kDistanceFromMotorToFrontOfTheChasie = Units.inchesToMeters(14); // bassed on missurement
+  //-------
+    public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidthMeters);
+      
+    public static final double kMaxSpeedMetersPerSecond = 3; // Leave it as it is
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3; // Leave it as it is
+
+    // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
+    public static final double kRamseteB = 2; // Leave it as it is 
+    public static final double kRamseteZeta = 0.7; // Leave it as it is
+
+    public static final double kGearRatio = 12.6;
+    public static final double kWheelRadiusInches = 3;
+
+    public static final double kLinearDistanceConversionFactor = (Units.inchesToMeters(1 / (kGearRatio * 2 * Math.PI * Units.inchesToMeters(kWheelRadiusInches)) * 10));
+
   }
 
   // Intake Constants 
@@ -29,5 +56,6 @@ public final class Constants {
   // Operator Constants 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kIntakeControllerPort = 1;
   }
 }

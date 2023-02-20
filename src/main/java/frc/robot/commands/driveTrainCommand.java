@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.driveTrainSubSystem;
 /*  import edu.wpi.first.wpilibj.Joystick; we are not using a joystick any more*/
@@ -30,7 +29,7 @@ public class driveTrainCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("Starting Joystick drive command");
+    System.out.println("Starting drive train command");
   }
 
   // Called every time the scheduler runs while the command is scheduled.

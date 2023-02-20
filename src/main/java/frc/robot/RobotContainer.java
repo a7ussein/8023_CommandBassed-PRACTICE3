@@ -3,18 +3,28 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import java.io.IOException;
+import java.nio.file.Path;
 
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.driveTrainCommand;
-import frc.robot.subsystems.driveTrainSubSystem;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.driveTrainConstants;
+import frc.robot.commands.driveTrainCommand;
+import frc.robot.subsystems.driveTrainSubSystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -32,12 +42,46 @@ public class RobotContainer {
   public static XboxController driveController = new XboxController(0); // Driving controller is supposed to be on port 0
   public static XboxController intakeController = new XboxController(1); // Intake controller is supposed to be on port 1 
 
+
+    SendableChooser<Command> chooser = new SendableChooser<>();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
     driveTrainSubSystem.setDefaultCommand(driveTrainCommand);
+
+    chooser.addOption("Deposit Cupe and Drive out", loadPathPlannerToRamseteCommand("E:/Robot_Code/src/main/deploy/deploy/pathplanner/DepostCubeAndExit.wpilib.json", true));
+    chooser.addOption("Deposit And Exit Over Charging Station", loadPathPlannerToRamseteCommand("E:/Robot_Code/src/main/deploy/deploy/pathplanner/generatedJSON/DepositCubeAndExitOverChargningStation.wpilib.json", true));
+    chooser.addOption("Go Pick An Object Up", loadPathPlannerToRamseteCommand("E:/Robot_Code/src/main/deploy/deploy/pathplanner/generatedJSON/GoPickAnObjectUp.wpilib.json", true));
+
+    Shuffleboard.getTab("Autonomous").add(chooser);
   }
+
+  public Command loadPathPlannerToRamseteCommand(String filename, boolean resetOdometry){
+    Trajectory trajectory;
+    try{
+      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(filename);
+      trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    }catch(IOException exception){
+      DriverStation.reportError("Unable to Open Trajectory " + filename, exception.getStackTrace());
+      System.out.println("Unable to read from file " + filename);
+      return new InstantCommand();
+    }
+    RamseteCommand ramseteCommand = new RamseteCommand(trajectory, driveTrainSubSystem::getPose,
+        new RamseteController(driveTrainConstants.kRamseteB, driveTrainConstants.kRamseteZeta), 
+        new SimpleMotorFeedforward(driveTrainConstants.ksVolts,driveTrainConstants.kvVoltSecondsPerMeter, 
+        driveTrainConstants.kaVoltSecondsSquaredPerMeter), driveTrainConstants.kDriveKinematics, driveTrainSubSystem::getWheelSpeeds,
+        new PIDController(driveTrainConstants.kPDriveVel, 0, 0), new PIDController(driveTrainConstants.kPDriveVel, 0, 0), 
+        driveTrainSubSystem::tankDriveVolts, driveTrainSubSystem);
+
+      if(resetOdometry){
+        return new SequentialCommandGroup(new InstantCommand(()->driveTrainSubSystem.resetOdometry(trajectory.getInitialPose())), ramseteCommand);
+      }else{
+        return ramseteCommand;
+      }
+  }
+
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -62,6 +106,9 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return driveTrainCommand;
+    return chooser.getSelected();
+  }
+  public driveTrainSubSystem getDriveTrainSubSystem(){
+    return driveTrainSubSystem;
   }
 }

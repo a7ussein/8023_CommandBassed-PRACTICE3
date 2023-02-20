@@ -1,0 +1,67 @@
+ASK Jaramy to look at this: 
+
+https://gitlab.com/ecscher84/2815-robot-2023-simulation/-/blob/main/src/main/java/frc/robot/subsystems/DriveSubsystem.java
+
+
+
+
+
+The code block shown below is a modification of the WPI Library gyro drive straight example to use the ADIS16470 IMU instead.
+
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
+package org.usfirst.frc.team12333.robot;
+
+import com.analog.adis16470.frc.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
+/**
+ * This is a sample program to demonstrate how to use a gyro sensor to make a
+ * robot drive straight. This program uses a joystick to drive forwards and
+ * backwards while the gyro is used for direction keeping.
+ */
+public class Robot extends IterativeRobot {
+	private static final double kAngleSetpoint = 0.0;
+	private static final double kP = 0.005; // propotional turning constant
+
+	// gyro calibration constant, may need to be adjusted;
+	// gyro value of 360 is set to correspond to one full revolution
+	private static final double kVoltsPerDegreePerSecond = 0.0128;
+
+	private static final int kLeftMotorPort = 0;
+	private static final int kRightMotorPort = 1;
+	private static final int kJoystickPort = 0;
+
+	private DifferentialDrive m_myRobot
+			= new DifferentialDrive(new Spark(kLeftMotorPort),
+			new Spark(kRightMotorPort));
+	private AnalogGyro m_gyro = new AnalogGyro(kGyroPort);
+	private Joystick m_joystick = new Joystick(kJoystickPort);
+	
+	public static final ADIS16470_IMU imu = new ADIS16470_IMU();
+
+	@Override
+	public void robotInit() {
+		// You can put a calibrate() method call here, but it's not necessary since the library does it for you
+	}
+
+	/**
+	 * The motor speed is set from the joystick while the RobotDrive turning
+	 * value is assigned from the error between the setpoint and the gyro angle.
+	 */
+	@Override
+	public void teleopPeriodic() {
+		double turningValue = (kAngleSetpoint - imu.getAngle()) * kP;
+		// Invert the direction of the turn if we are going backwards
+		turningValue = Math.copySign(turningValue, m_joystick.getY());
+		m_myRobot.arcadeDrive(m_joystick.getY(), turningValue);
+	}
+}
