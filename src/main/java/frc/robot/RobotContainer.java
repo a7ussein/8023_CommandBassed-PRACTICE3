@@ -27,16 +27,16 @@ public class RobotContainer {
   private final driveTrainSubSystem driveTrainSubSystem = new driveTrainSubSystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final driveTrainCommand driveWithJoyStickCommand = new driveTrainCommand(driveTrainSubSystem);
+  private final driveTrainCommand driveTrainCommand = new driveTrainCommand(driveTrainSubSystem);
   //CONTROLLERS 
-  public static XboxController driveController = new XboxController(0);
-  public static XboxController intakeController = new XboxController(1);
+  public static XboxController driveController = new XboxController(0); // Driving controller is supposed to be on port 0
+  public static XboxController intakeController = new XboxController(1); // Intake controller is supposed to be on port 1 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    driveTrainSubSystem.setDefaultCommand(driveWithJoyStickCommand);
+    driveTrainSubSystem.setDefaultCommand(driveTrainCommand);
   }
 
   /**
@@ -62,6 +62,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return driveWithJoyStickCommand;
+    return driveTrainCommand;
   }
 }
