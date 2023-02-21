@@ -20,8 +20,8 @@ public final class Constants {
   public static final class driveTrainConstants{
     public static final int leftFrontCANID = 3;
     public static final int leftBackCANID = 4;
-    public static final int rightFrontCANID = 2;
-    public static final int rightBackCANID = 1;
+    public static final int rightFrontCANID = 2; // inverted
+    public static final int rightBackCANID = 1; // inverted
 
   //Replace the below values with numbers from SysId
     public static final double ksVolts = 0.20322; // Replace 
@@ -30,7 +30,7 @@ public final class Constants {
     public static final double kPDriveVel = 4.569; // Replace
 
     public static final double kTrackWidthMeters = Units.inchesToMeters(14); // according to Alex
-    public static final double kDistanceFromMotorToFrontOfTheChasie = Units.inchesToMeters(14); // bassed on missurement
+    public static final double kDistanceFromMotorToFrontOfTheChasie = Units.inchesToMeters(14.5); // bassed on missurement
   //-------
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidthMeters);
       

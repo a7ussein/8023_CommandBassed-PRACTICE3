@@ -130,12 +130,12 @@ public DifferentialDriveWheelSpeeds getWheelSpeeds(){
 
 // Average encoder distance Method
 public double getAverageEncoderDistance(){
-  return ((getLeftEncoderPosition() + getRightEncoderPosition()) / 2.0);
+  return ((getLeftEncoderPosition() + getRightEncoderPosition()) / 2.0) ;
 }
 
 // Position of the right encoder after the conversion factor is applied Method --- had to negate it cuz it was outputing results in negative nums
 public double getRightEncoderPosition(){
-  return -rightEncoder.getPosition() + Constants.driveTrainConstants.kDistanceFromMotorToFrontOfTheChasie;
+  return rightEncoder.getPosition() + Constants.driveTrainConstants.kDistanceFromMotorToFrontOfTheChasie;
 }
 
 
@@ -147,7 +147,7 @@ public double getLeftEncoderPosition(){
 
 // Velocity of the right encoder after the conversion factor is applied Method
 public double getRightEncoderVelocity(){
-  return rightEncoder.getVelocity();
+  return (rightEncoder.getVelocity());
 }
 
 // Velocity of the left encoder after the conversion factor is applied  Method

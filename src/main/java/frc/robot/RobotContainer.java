@@ -51,9 +51,10 @@ public class RobotContainer {
     configureBindings();
     driveTrainSubSystem.setDefaultCommand(driveTrainCommand);
 
-    chooser.addOption("Deposit Cupe and Drive out", loadPathPlannerToRamseteCommand("E:/Robot_Code/src/main/deploy/deploy/pathplanner/DepostCubeAndExit.wpilib.json", true));
-    chooser.addOption("Deposit And Exit Over Charging Station", loadPathPlannerToRamseteCommand("E:/Robot_Code/src/main/deploy/deploy/pathplanner/generatedJSON/DepositCubeAndExitOverChargningStation.wpilib.json", true));
-    chooser.addOption("Go Pick An Object Up", loadPathPlannerToRamseteCommand("E:/Robot_Code/src/main/deploy/deploy/pathplanner/generatedJSON/GoPickAnObjectUp.wpilib.json", true));
+    chooser.addOption("Deposit Cupe and Drive out", loadPathPlannerToRamseteCommand("deploy/pathplanner/generatedJSON/DepostCubeAndExit.wpilib.json", true));
+    chooser.addOption("Deposit And Exit Over Charging Station", loadPathPlannerToRamseteCommand("deploy/pathplanner/generatedJSON/DepositCubeAndExitOverChargningStation.wpilib.json", true));
+    chooser.addOption("Go Pick An Object Up", loadPathPlannerToRamseteCommand("deploy/pathplanner/generatedJSON/GoPickAnObjectUp.wpilib.json", true));
+    chooser.addOption("DriveForward", loadPathPlannerToRamseteCommand("deploy/pathplanner/generatedJSON/DriveForward.wpilib.json", true));
 
     Shuffleboard.getTab("Autonomous").add(chooser);
   }
