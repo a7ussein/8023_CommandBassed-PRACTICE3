@@ -1,13 +1,14 @@
 package frc.robot.subsystems;
 
 
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class intakeSubSystem extends SubsystemBase{
-    VictorSP rollerMotor = new VictorSP(Constants.intakeConstants.intakeMotor1);
-    VictorSP raisingMotor = new VictorSP(Constants.intakeConstants.intakeMotor2);
+    WPI_VictorSPX rollerMotor = new WPI_VictorSPX(Constants.intakeConstants.intakeMotor1);
+    WPI_VictorSPX raisingMotor = new WPI_VictorSPX(Constants.intakeConstants.intakeMotor2);
 
 
     // Roller Motor functions
