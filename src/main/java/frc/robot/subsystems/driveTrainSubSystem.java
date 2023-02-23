@@ -103,18 +103,18 @@ public class driveTrainSubSystem extends SubsystemBase {
 
   // BreakMode method
   public void setBreakMode(){
-    leftBackMotor.setIdleMode(IdleMode.kCoast);
-    leftFrontMotor.setIdleMode(IdleMode.kCoast);
-    rightFrontMotor.setIdleMode(IdleMode.kCoast);
-    rightBackMotor.setIdleMode(IdleMode.kCoast);
-  }
-
-  // CoastMode method
-  public void setCoastMode(){
     leftBackMotor.setIdleMode(IdleMode.kBrake);
     leftFrontMotor.setIdleMode(IdleMode.kBrake);
     rightFrontMotor.setIdleMode(IdleMode.kBrake);
     rightBackMotor.setIdleMode(IdleMode.kBrake);
+  }
+
+  // CoastMode method
+  public void setCoastMode(){
+    leftBackMotor.setIdleMode(IdleMode.kCoast);
+    leftFrontMotor.setIdleMode(IdleMode.kCoast);
+    rightFrontMotor.setIdleMode(IdleMode.kCoast);
+    rightBackMotor.setIdleMode(IdleMode.kCoast);
   }
 //_________________________________________________
 // Encoder Methods:
