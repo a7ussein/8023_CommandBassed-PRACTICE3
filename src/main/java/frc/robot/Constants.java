@@ -27,7 +27,7 @@ public final class Constants {
     public static final double ksVolts = 0.20322; // Replace 
     public static final double kvVoltSecondsPerMeter = 3.2976; // Replace
     public static final double kaVoltSecondsSquaredPerMeter = 0.67542; // Replace
-    public static final double kPDriveVel = 4.569; // Replace
+    public static final double kPDriveVel = 0.5; // Replace
 
     public static final double kTrackWidthMeters = Units.inchesToMeters(14); // according to Alex
     public static final double kDistanceFromMotorToFrontOfTheChasie = Units.inchesToMeters(14.5); // bassed on missurement
