@@ -55,6 +55,7 @@ public class RobotContainer {
     chooser.addOption("Deposit And Exit Over Charging Station", loadPathPlannerToRamseteCommand("deploy/pathplanner/generatedJSON/DepositCubeAndExitOverChargningStation.wpilib.json", true));
     chooser.addOption("Go Pick An Object Up", loadPathPlannerToRamseteCommand("deploy/pathplanner/generatedJSON/GoPickAnObjectUp.wpilib.json", true));
     chooser.addOption("DriveForward", loadPathPlannerToRamseteCommand("deploy/pathplanner/generatedJSON/DriveForward.wpilib.json", true));
+    chooser.addOption("Curvey", loadPathPlannerToRamseteCommand("deploy/pathplanner/generatedJSON/CurveyPath.wpilib.json", true));
 
     Shuffleboard.getTab("Autonomous").add(chooser);
   }

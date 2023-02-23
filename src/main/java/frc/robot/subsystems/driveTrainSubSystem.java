@@ -135,13 +135,13 @@ public double getAverageEncoderDistance(){
 
 // Position of the right encoder after the conversion factor is applied Method --- had to negate it cuz it was outputing results in negative nums
 public double getRightEncoderPosition(){
-  return rightEncoder.getPosition() + Constants.driveTrainConstants.kDistanceFromMotorToFrontOfTheChasie;
+  return rightEncoder.getPosition();
 }
 
 
 // Position of the left encoder after the conversion factor is applied Method
 public double getLeftEncoderPosition(){
-  return leftEncoder.getPosition() + Constants.driveTrainConstants.kDistanceFromMotorToFrontOfTheChasie;
+  return leftEncoder.getPosition();
 }
 
 
@@ -185,12 +185,12 @@ public RelativeEncoder getRightEncoder(){
 
  // Heading Output Method:
   public double getHeading() {
-      return -m_IMU.getAngle();
+      return m_IMU.getAngle();
   }
 
   // Turning Rate Output Method:
   public double getTurnRate(){
-    return -m_IMU.getRate();
+    return m_IMU.getRate();
   }
   public Pose2d getPose(){
     return m_Odometry.getPoseMeters();

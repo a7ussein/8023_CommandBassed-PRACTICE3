@@ -6,7 +6,7 @@
   "gearing numerator": 8.46,
   "gyro": "ADIS16470",
   "gyro ctor": "SPI (Onboard CS1)",
-  "is drivetrain": false,
+  "is drivetrain": true,
   "motor controllers": [
     "SPARK MAX (Brushless)",
     "SPARK MAX (Brushless)"
