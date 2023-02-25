@@ -37,8 +37,8 @@ public class driveTrainSubSystem extends SubsystemBase {
   RelativeEncoder leftEncoder = leftFrontMotor.getEncoder();
   RelativeEncoder rightEncoder = rightFrontMotor.getEncoder();
 
-  MotorControllerGroup leftControllerGroup = new MotorControllerGroup(leftFrontMotor, leftBackMotor);
-  MotorControllerGroup rightControllerGroup = new MotorControllerGroup(rightFrontMotor, rightBackMotor);
+  public MotorControllerGroup leftControllerGroup = new MotorControllerGroup(leftFrontMotor, leftBackMotor);
+  public MotorControllerGroup rightControllerGroup = new MotorControllerGroup(rightFrontMotor, rightBackMotor);
 
   DifferentialDrive differentialDrive = new DifferentialDrive(leftControllerGroup, rightControllerGroup);
 
@@ -135,7 +135,7 @@ public double getAverageEncoderDistance(){
 
 // Position of the right encoder after the conversion factor is applied Method --- had to negate it cuz it was outputing results in negative nums
 public double getRightEncoderPosition(){
-  return rightEncoder.getPosition();
+  return -rightEncoder.getPosition();
 }
 
 
@@ -147,7 +147,7 @@ public double getLeftEncoderPosition(){
 
 // Velocity of the right encoder after the conversion factor is applied Method
 public double getRightEncoderVelocity(){
-  return (rightEncoder.getVelocity());
+  return -(rightEncoder.getVelocity());
 }
 
 // Velocity of the left encoder after the conversion factor is applied  Method
@@ -196,6 +196,10 @@ public RelativeEncoder getRightEncoder(){
     return m_Odometry.getPoseMeters();
   }
 
+  public double getPitch(){
+    return m_IMU.getYComplementaryAngle();
+  }
+
   // 
 //_________________________________________________
 
@@ -212,6 +216,9 @@ public RelativeEncoder getRightEncoder(){
     SmartDashboard.putNumber("Average Encoder Distance", getAverageEncoderDistance());
     SmartDashboard.putNumber("Imu heading", getHeading());
     SmartDashboard.putNumber("Imu Turn Rate", getTurnRate());
+    SmartDashboard.putNumber("Imu Angle", m_IMU.getAngle());
+    SmartDashboard.putNumber("YComp", getPitch());
+
   }
 
   @Override

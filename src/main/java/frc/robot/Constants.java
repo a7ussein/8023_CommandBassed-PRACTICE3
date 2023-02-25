@@ -41,7 +41,7 @@ public final class Constants {
     public static final double kRamseteB = 2; // Leave it as it is 
     public static final double kRamseteZeta = 0.7; // Leave it as it is
 
-    public static final double kGearRatio = 12.6;
+    public static final double kGearRatio = 8.46;
     public static final double kWheelRadiusInches = 3;
 
     public static final double kLinearDistanceConversionFactor = (Units.inchesToMeters(1 / (kGearRatio * 2 * Math.PI * Units.inchesToMeters(kWheelRadiusInches)) * 10));
@@ -57,5 +57,18 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kIntakeControllerPort = 1;
+  }
+
+  // PID Constants 
+  public static class PIDConstants{
+    final double kP = 0.1; // needs to be calculated, MAKE SURE YOU DON'T HAVE THE ROBOT ON THE GROUND UNTIL YOU FIGURE IT OUT!
+    final double kI = 0.1; // needs to be calculated, MAKE SURE YOU DON'T HAVE THE ROBOT ON THE GROUND UNTIL YOU FIGURE IT OUT!
+    final double kD = 0.1; // needs to be calculated, MAKE SURE YOU DON'T HAVE THE ROBOT ON THE GROUND UNTIL YOU FIGURE IT OUT!
+    final double iLimit =  1;
+  
+    double setPoint = 0;
+    double errorSum = 0;
+    double lastTimeStamp = 0;
+    double lastError = 0;
   }
 }
